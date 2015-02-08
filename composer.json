@@ -1,0 +1,19 @@
+{
+  "name": "goonwood/dcannounce-server",
+  "type": "project",
+  "require": {
+    "php": ">=5.4.0",
+    "ext-pdo_sqlite": "*",
+    "slim/slim": "~2.5"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "DcAnnounce\\": "src/DcAnnounce"
+    }
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
+}
