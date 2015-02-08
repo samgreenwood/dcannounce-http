@@ -10,7 +10,7 @@ $pdo = new PDO('sqlite:../dcannounce.sqlite');
 $announcementRepository = new AnnouncementRepository($pdo);
 
 $createTableIfNotExists = "CREATE TABLE IF NOT EXISTS announcements(
-   id       INT       PRIMARY KEY NOT NULL,
+   id       INTEGER   PRIMARY KEY AUTOINCREMENT,
    site     TEXT      NOT NULL,
    filename TEXT      NOT NULL,
    size     TEXT      NOT NULL,
@@ -19,7 +19,7 @@ $createTableIfNotExists = "CREATE TABLE IF NOT EXISTS announcements(
 
 $pdo->prepare($createTableIfNotExists)->execute();
 
-$app = new Slim([  'templates.path' => '../templates']);
+$app = new Slim(['templates.path' => '../templates']);
 require 'routes.php';
 
 $app->run();

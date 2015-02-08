@@ -23,14 +23,17 @@ class AnnouncementRepository
     {
         $announcements = [];
 
-        $select = "SELECT * from Announcements";
+        $select = "SELECT * from announcements";
 
         $statement = $this->db->prepare($select);
-        $data = $statement->fetchAll();
+
+        $statement->execute();
+
+        $data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
         foreach($data as $row)
         {
-            var_dump($row);die;
+            $announcements[] = new Announcement($row['site'], $row['filename'], $row['size'], $row['tth']);
         }
 
         return $announcements;
@@ -47,7 +50,7 @@ class AnnouncementRepository
     {
 
         $insert = "INSERT INTO announcements (site, filename, size, tth)
-                VALUES (:site, :filename, :size, :tth) ";
+                VALUES (:site, :filename, :size, :tth)";
         $statement = $this->db->prepare($insert);
 
         $statement->bindParam(':site', $announcement->getSite());
