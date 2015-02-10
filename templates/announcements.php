@@ -32,7 +32,7 @@
                 <tr>
                     <td><?=$announcement->getFilename()?></td>
                     <td><?=$announcement->getSite()?></td>
-                    <td><?=$announcement->getSize()?></td>
+                    <td><?=humanFileSize($announcement->getSize())?></td>
                     <td><?=$announcement->getTTH()?> <a href="<?=$announcement->getMagnet()?>"><i class="fa fa-magnet"></i></td>
                     <td><?=$announcement->getAnnounced()->format('d/m/y h:i:s')?></td>
                 </tr>
