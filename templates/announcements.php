@@ -2,17 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
     <title>DcAnnounce</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
 
 </head>
 
@@ -31,7 +24,7 @@
                     <th>Site</th>
                     <th>Size</th>
                     <th>TTH</th>
-                    <th>Magnet</th>
+                    <th>Announced</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,8 +33,8 @@
                     <td><?=$announcement->getFilename()?></td>
                     <td><?=$announcement->getSite()?></td>
                     <td><?=$announcement->getSize()?></td>
-                    <td><?=$announcement->getTTH()?></td>
-                    <td><?=$announcement->getTTH()?></td>
+                    <td><?=$announcement->getTTH()?> <a href="<?=$announcement->getMagnet()?>"><i class="fa fa-magnet"></i></td>
+                    <td><?=$announcement->getAnnounced()->format('d/m/y h:i:s')?></td>
                 </tr>
             <?php } ?>
             </tbody>

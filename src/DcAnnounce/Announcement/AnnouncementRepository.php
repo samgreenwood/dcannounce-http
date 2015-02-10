@@ -31,9 +31,8 @@ class AnnouncementRepository
 
         $data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        foreach($data as $row)
-        {
-            $announcements[] = new Announcement($row['site'], $row['filename'], $row['size'], $row['tth']);
+        foreach ($data as $row) {
+            $announcements[] = new Announcement($row['site'], $row['filename'], $row['size'], $row['tth'], new\DateTime($row['announced']));
         }
 
         return $announcements;
@@ -49,14 +48,15 @@ class AnnouncementRepository
     public function save(Announcement $announcement)
     {
 
-        $insert = "INSERT INTO announcements (site, filename, size, tth)
-                VALUES (:site, :filename, :size, :tth)";
+        $insert = "INSERT INTO announcements (site, filename, size, tth, announced)
+                VALUES (:site, :filename, :size, :tth, :announced)";
         $statement = $this->db->prepare($insert);
 
         $statement->bindParam(':site', $announcement->getSite());
         $statement->bindParam(':filename', $announcement->getFilename());
         $statement->bindParam(':size', $announcement->getSize());
         $statement->bindParam(':tth', $announcement->getTth());
+        $statement->bindParam(':announced', $announcement->getAnnounced()->format(\DateTime::ISO8601));
 
         return $statement->execute();
 
