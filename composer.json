@@ -4,7 +4,8 @@
   "require": {
     "php": ">=5.4.0",
     "ext-pdo_sqlite": "*",
-    "slim/slim": "~2.5"
+    "slim/slim": "~2.5",
+    "hoa/socket": "0.14.12.10"
   },
   "require-dev": {
   },

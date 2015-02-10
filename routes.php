@@ -28,12 +28,11 @@ $app->post('/announce', function () use ($app, $announcementRepository) {
             $announcement = Announcement::announce($site, $filename, $size, $tth);
             $announcementRepository->save($announcement);
 
-            $magnet = sprintf("magnet:?xt=urn:tree:tiger:%s&xl=%s&dn=%s", $tth, $size, $filename);
+            $announceString = sprintf("[%s] %s - %s - %s", $site, $filename, humanFileSize($size), $announcement->getMagnet());
 
-            $announceString = addslashes(sprintf("[%s] %s - %s - %s", $site, $filename, humanFileSize($size), $magnet));
-            $command = sprintf("echo '%s' | nc localhost 54321", $announceString);
-
-            exec($command);
+            $client = new \Hoa\Socket\Client('tcp://localhost:54321');
+            $client->connect();
+            $client->writeLine($announceString);
 
         } catch (Exception $e) {
             $data = ['status' => 'error'];
