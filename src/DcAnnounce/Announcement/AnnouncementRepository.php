@@ -23,7 +23,7 @@ class AnnouncementRepository
     {
         $announcements = [];
 
-        $select = "SELECT * from announcements";
+        $select = "SELECT * FROM announcements ORDER BY announced DESC";
 
         $statement = $this->db->prepare($select);
 
