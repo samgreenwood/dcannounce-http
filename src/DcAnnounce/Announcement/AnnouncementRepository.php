@@ -40,6 +40,32 @@ class AnnouncementRepository
     }
 
     /**
+     * Get the last x number of announcements
+     * @param int $limit
+     * @return array
+     */
+    public function getRecent($limit = 5)
+    {
+        $announcements = [];
+
+        $select = "SELECT * FROM announcements ORDER BY announced DESC LIMIT :limit";
+
+        $statement = $this->db->prepare($select);
+        $statement->bindParam('limit', $limit);
+
+        $statement->execute();
+
+        $data = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        foreach ($data as $row) {
+            $announcements[] = new Announcement($row['site'], $row['filename'], $row['size'], $row['tth'], new\DateTime($row['announced']));
+        }
+
+        return $announcements;
+
+    }
+
+    /**
      * Save an announcement to the database
      *
      * @param Announcement $announcement
