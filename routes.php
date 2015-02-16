@@ -11,6 +11,16 @@ $app->get('/', function () use ($app, $announcementRepository) {
     $app->render('announcements.php', compact('announcements'));
 });
 
+$app->get('/api/recent', function() use ($app, $announcementRepository)
+{
+    $recentAnnouncements = $announcementRepository->getRecent();
+
+    $response = $app->response();
+    $response->setBody(json_encode($recentAnnouncements));
+    $response->headers->set('Content-Type', 'application/json');
+    $response->finalize();
+});
+
 /**
  * Announce something new
  */
